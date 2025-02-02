@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 app.use(cors());
@@ -21,5 +22,12 @@ app.get("/search", (req, res) => {
 
   res.json(results);
 });
+
+const __dirname1 = path.resolve();
+app.use(express.static(path.join(__dirname1, "../frontend/dist")));
+
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname1, "../frontend/dist", "index.html"))
+);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
