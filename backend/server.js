@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 app.use(cors());
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const students = JSON.parse(fs.readFileSync("student_data.json", "utf8"));
 
 app.get("/search", (req, res) => {
@@ -24,6 +24,7 @@ app.get("/search", (req, res) => {
 });
 
 const __dirname1 = path.resolve();
+
 app.use(express.static(path.join(__dirname1, "../frontend/dist")));
 
 app.get("*", (req, res) =>
